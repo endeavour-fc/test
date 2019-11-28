@@ -52,16 +52,44 @@ class MyString
         {
             return this->str;
         }
+        friend ostream& operator<<(ostream& os,const MyString& str);
+        friend istream&operator>>(istream& is ,MyString& str);
     private:
         char* str;
         int len;
 };
+ostream& operator<<(std::ostream& os,const MyString& str)
+{
+    os<<str.str<<endl;
+    os<<str.len<<endl;
+    return os;
+}
+istream&operator>>(std::istream& is,MyString& str)
+{
+     int i=0;
+     cout<<"please input your string num"<<endl;
+     cin>>i;
+     if(str.str==NULL)
+        str.str=new char[i+1];
+     else
+     {
+         delete []str.str;
+         str.str=new char[i+1];
+     }
+     str.len=i;
+     cout<<"please input string"<<endl;
+     is>>str.str;
+     return is;
+    
+}
 int main()
 {
     MyString s1("hhhhhh");
     MyString s2("mmmmmm");
     MyString s3;
     s1= (s1+s2);
-    cout<<s1.GetString()<<endl;
+    //cout<<s1.GetString()<<endl;
+    cin>>s1;
+    cout<<s1<<endl;
     return 0;
 }
